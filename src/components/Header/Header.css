@@ -1,0 +1,67 @@
+.header {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+}
+/*для мэйна*/
+.header_main {
+  background-color: rgba(7, 48, 66, 1);
+  padding: 18px 70px 18px;
+  align-items: center;
+  justify-content: space-between;
+}
+/*для регистрации и авторизации*/
+.header_auth {
+  flex-direction: column;
+  padding-top: 70px;
+  max-width: 396px;
+  margin: auto;
+}
+/*для авторизованого пользователя*/
+.header_client {
+  justify-content: space-between;
+  padding: 18px 70px 18px;
+  align-items: center;
+}
+
+.header__title {
+  margin: 0;
+  padding: 40px 0 40px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 768px) {
+  .header_main {
+    padding: 18px 30px  18px;
+  }
+  
+  .header_client {
+    padding: 18px 30px 18px;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .header_main {
+    padding: 14px 18px 14px;
+  }
+
+  .header_auth {
+    padding-top: 56px;
+    max-width: 260px;
+    margin: auto;
+    align-items: center;
+  }
+
+  .header_client {
+    padding: 14px 18px 14px;;
+  }
+
+  .header__title {
+    padding: 50px 0 80px;
+  }
+}

@@ -1,0 +1,101 @@
+.card {
+  width: 100%;
+}
+
+.card__image {
+  width: 100%;
+  height: 151px;
+}
+
+.card__signature {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  padding-bottom: 29px;
+  box-sizing: border-box;
+}
+
+.card__title {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #FFFFFF;
+  margin: 0
+}
+
+.card__button_save {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+  background: url(../../images/button-save.svg) no-repeat center;
+}
+
+.card__button_remove {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+  background: url(../../images/button-remove.svg) no-repeat center;
+}
+
+.card__button-like {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+  background: url(../../images/button-like.svg) no-repeat center;
+}
+
+.card__button_save:hover {
+  opacity: 0.6;
+  transition: 1s ease;
+}
+
+.card__button_remove:hover {
+  opacity: 0.6;
+  transition: 1s ease;
+}
+
+.card__button-like:hover {
+  opacity: 0.6;
+  transition: 1s ease;
+}
+
+.card__duration {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  align-items: center;
+  color: #8B8B8B;
+  padding-top: 6px;
+  margin: 0;
+  border-top: 1px solid rgba(66, 66, 66, 1);
+}
+
+@media screen and (max-width: 768px) {
+  .card__image {
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card__image {
+    height: 168px;
+  }
+
+  .card__title {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .card__duration {
+    font-size: 10px;
+    line-height: 12px;
+  }
+}
