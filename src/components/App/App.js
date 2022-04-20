@@ -15,7 +15,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 function App() {
 
-const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(true);
+const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
 const message = false;
 function closeAllPopups() {
