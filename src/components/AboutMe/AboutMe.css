@@ -1,0 +1,189 @@
+.about-me {
+  padding: 110px 70px 125px 70px;
+}
+
+.about-me__title {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0;
+  padding-bottom: 23px;
+}
+
+.about-me__columns {
+  border-top: 1px solid  #DADADA;
+  padding-top: 66px;
+  padding-bottom: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-me__info {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.about-me__name {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.about-me__report {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 18px 0 26px 0;
+}
+.about-me__description {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.about-me__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.about-me__link {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.about-me__list :nth-child(even) {
+  margin: 0 20px;
+}
+
+.about-me__link:hover {
+  opacity: 0.6;
+  transition: 1s ease;
+}
+
+.about-me__image {
+  max-width: 270px;
+  height: 327px;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .about-me {
+    padding: 90px 50px 90px 50px;
+  }
+
+  .about-me__columns {
+    padding-bottom: 90px;
+  }
+
+  .about-me__info {
+    max-width: 364px;
+  }
+
+  .about-me__name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .about-me__report {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 16px 0 20px 0;
+  }
+
+  .about-me__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-me__image {
+    height: 307px;
+    max-width: 255px;
+
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .about-me {
+    padding: 70px 14px 70px 14px;
+  }
+
+  .about-me__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+
+  .about-me__columns {
+    padding-top: 60px;
+    padding-bottom: 70px;
+    flex-direction: column;
+  }
+
+  .about-me__columns :nth-child(1) {
+    order: 2;
+  }
+
+  .about-me__columns :nth-child(2) {
+    order: 1;
+  }
+
+  .about-me__info :nth-child(1) {
+    order: 1;
+}
+
+  .about-me__info :nth-child(2) {
+    order: 2;
+  }
+
+  .about-me__name {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .about-me__report {
+    font-size: 11px;
+    line-height: 16px;
+    padding: 20px 0 20px 0;
+  }
+
+  .about-me__description {
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+
+  .about-me__list :nth-child(even) {
+    margin: 0 26px;
+  }
+
+  .about-me__image {
+    margin: auto;
+    padding-bottom: 40px;
+  }
+}

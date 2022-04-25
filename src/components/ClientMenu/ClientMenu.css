@@ -1,0 +1,56 @@
+.menu {
+
+}
+
+.menu__list {
+  align-items: center;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+}
+
+.menu__list :nth-child(2) {
+  margin-left: 20px;
+  margin-right: 50px;
+}
+
+.menu__item {
+}
+
+.menu__link {
+  text-decoration: none;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #FFFFFF;
+}
+
+.menu__link_active {
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.menu__button {
+  background-color: #202020;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  box-sizing: border-box;
+  border-radius: 50px;
+  padding: 9px 12px;
+}
+
+.menu__account-icon {
+  margin-right: 7px;
+}
