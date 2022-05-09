@@ -4,22 +4,39 @@ import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import { moviesList } from "../../utils/allMovies";
 import Footer from "../Footer/Footer";
-import Preloader from "../Preloader/Preloader";
 
-const loading = false;
-
-function Movies() {
+function Movies({
+  searcedMovies,
+  searcQuery,
+  handleChangeSearcQuery,
+  handleSearc,
+  isCheckedBox,
+  handlerCheckBox,
+  isLoading,
+  likeMovie,
+  removeMovie,
+}) {
   return (
     <>
       <Header modification="header_client">
         <Navigation />
       </Header>
-      <SearchForm />
-      <MoviesCardList movies={moviesList} />
+      <SearchForm
+        searcQuery={searcQuery}
+        handleChangeSearcQuery={handleChangeSearcQuery}
+        handleSearc={handleSearc}
+        isCheckedBox={isCheckedBox}
+        handlerCheckBox={handlerCheckBox}
+      />
+      <MoviesCardList
+        searcedMovies={searcedMovies}
+        searcQuery={searcQuery}
+        isLoading={isLoading}
+        likeMovie={likeMovie}
+        removeMovie={removeMovie}
+      />
       <Footer />
-      {loading && <Preloader />}
     </>
   );
 }

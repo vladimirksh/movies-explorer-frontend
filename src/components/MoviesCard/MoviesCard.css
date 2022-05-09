@@ -4,7 +4,11 @@
 
 .card__image {
   width: 100%;
-  height: auto;
+  min-height: 151px;
+  max-height: 151px;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
 }
 
 .card__signature {
@@ -26,7 +30,7 @@
   margin: 0
 }
 
-.card__button_save {
+.card__button-like {
   width: 24px;
   height: 24px;
   border: none;
@@ -42,7 +46,7 @@
   background: url(../../images/button-remove.svg) no-repeat center;
 }
 
-.card__button-like {
+.card__button-like_active {
   width: 24px;
   height: 24px;
   border: none;
@@ -50,7 +54,7 @@
   background: url(../../images/button-like.svg) no-repeat center;
 }
 
-.card__button_save:hover {
+.card__button-like:hover {
   opacity: 0.6;
   transition: 1s ease;
 }
@@ -60,7 +64,7 @@
   transition: 1s ease;
 }
 
-.card__button-like:hover {
+.card__button-like_active:hover {
   opacity: 0.6;
   transition: 1s ease;
 }
@@ -78,6 +82,13 @@
   border-top: 1px solid rgba(66, 66, 66, 1);
 }
 
+@media screen and (max-width: 768px) {
+  .card__image {
+    min-height: 190px;
+    max-height: 190px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .card__title {
     font-size: 12px;
@@ -87,5 +98,10 @@
   .card__duration {
     font-size: 10px;
     line-height: 12px;
+  }
+
+  .card__image {
+    min-height: 168px;
+    max-height: 168px;
   }
 }

@@ -46,7 +46,7 @@ function MobileClientMenu() {
           <nav className="mobile-menu__nav">
             <li className="mobile-menu__nav-item">
               <NavLink
-                to="/"
+                to="/main"
                 exact
                 className="mobile-menu__nav-link"
                 activeClassName="mobile-menu__nav-link_active"

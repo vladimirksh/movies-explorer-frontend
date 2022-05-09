@@ -6,6 +6,21 @@
   align-items: center;
 }
 
+.movies__find-error {
+  border-top: 1px solid rgba(66, 66, 66, 1);
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  margin: 0;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  line-height: 25px;
+  color: #FFFFFF;
+  width: 100%;
+  text-align: center;
+}
+
 .movies__list {
   list-style: none;
   border-top: 1px solid rgba(66, 66, 66, 1);

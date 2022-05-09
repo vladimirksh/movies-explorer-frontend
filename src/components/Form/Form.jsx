@@ -1,12 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./Form.css";
 
-function Form({ children, caption = "", textButton, pathLink, textLink }) {
+function Form({
+  children,
+  caption = "",
+  textButton,
+  pathLink,
+  textLink,
+  handleSubmit,
+  formValid,
+}) {
+  const buttonClassName = `form__submit-button ${
+    formValid ? "" : "form__submit-button_inactive"
+  }`;
+
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleSubmit}>
       {children}
-      <button className="form__submit-button">{textButton}</button>
+      <button className={buttonClassName}>{textButton}</button>
       <p className="form__caption">
         {caption}
         <Link to={pathLink} className="form__link">
@@ -17,4 +29,4 @@ function Form({ children, caption = "", textButton, pathLink, textLink }) {
   );
 }
 
-export default Form;
+export default withRouter(Form);

@@ -49,6 +49,17 @@
   box-sizing: border-box;
   border-radius: 50px;
   padding: 9px 12px;
+  cursor: pointer;
+}
+
+.menu__link:hover {
+  opacity: 0.6;
+  transition: 1s ease;
+}
+
+.menu__button:hover {
+  opacity: 0.6;
+  transition: 1s ease;
 }
 
 .menu__account-icon {
