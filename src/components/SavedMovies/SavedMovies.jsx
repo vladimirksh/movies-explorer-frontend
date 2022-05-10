@@ -15,9 +15,8 @@ function SavedMovies({
   handlerCheckBox,
   isLoading,
   removeMovie,
+  searcQueryLength,
 }) {
-  console.log(searcedMovies);
-
   return (
     <>
       <Header modification="header_client">
@@ -35,6 +34,7 @@ function SavedMovies({
         searcQuery={searcQuery}
         removeMovie={removeMovie}
         isLoading={isLoading}
+        searcQueryLength={searcQueryLength}
       />
       <Footer />
     </>

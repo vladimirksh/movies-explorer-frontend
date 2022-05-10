@@ -15,7 +15,7 @@ import Movies from "../Movies/Movies"
 import SavedMovies from "../SavedMovies/SavedMovies"
 import Profile from "../Profile/Profile"
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"; // импортируем HOC
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { register, authorize, getUserData, patchUserData, postMovie, getSavedMovie, deleteMovie } from "../../utils/MainApi.js";
 import { getMoviesData } from "../../utils/MoviesApi.js";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
@@ -23,28 +23,23 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function App() {
   const history = useHistory();
-
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userSavedMovies, setUserSavedMovies] = useState([])
   const [searcedSaveMovies, setSearcedSaveMovies] = useState(userSavedMovies);
-
 
   //массив фильмов 
   const [movies, setMovies] = useState([]);
   
   //поисковый запрос и чебокс кароткометражек
   const [searcQuery, setSearcQuery] = useState("");
+  const [searcQueryLength, setSearcQueryLength] = useState(null);
   const [isCheckedBox, setIsCheckedBox] = useState(false);
   const [searcedMovies, setSearcedMovies] = useState(movies);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [message, setMessage] = useState(false);
-  const [isLoadingInitialData, setIsLoadingInitialData] = useState(false);
-
-
-
 
   //состояния для имени логина и пароля
   const [name, setName] = useState("");
@@ -84,10 +79,11 @@ function App() {
     setSearcedMovies(movies);
   }, [movies]);
 
+
   function handleSearc (e) {
     e.preventDefault();
     handleSeacrcMovies(movies, setSearcedMovies)
-
+    setSearcQueryLength(searcQueryLength)
   };
   //Глобальный поиск
 
@@ -96,42 +92,39 @@ function App() {
     setSearcedSaveMovies(userSavedMovies);
   }, [userSavedMovies]);
   
-
   function handleSearcSavedMovie (e) {
     e.preventDefault();
     handleSeacrcMovies(userSavedMovies, setSearcedSaveMovies)
-
+    setSearcQueryLength(searcQueryLength)
   };
   //Поиск по сохраненым фильмам
 
-
   //поиск
-  async function handleSeacrcMovies (movies, moviesFilter) {
+  async function handleSeacrcMovies (movies, filteredMovies) {
     setIsLoading(true);
-
     try {
       let promise = new Promise((resolve, reject) => {
         setTimeout(() => resolve(
           isCheckedBox ? 
-          moviesFilter(movies.filter( movie => 
+          filteredMovies(movies.filter( movie => 
             (movie.duration <= 40) &&
             (movie.nameRU.toLowerCase().includes(searcQuery.toLowerCase()))
              && (movie.nameRU.toLowerCase().includes(searcQuery.toLowerCase()))
             ))
           :
-          moviesFilter(movies.filter( movie => 
+          filteredMovies(movies.filter( movie => 
             (movie.nameRU.toLowerCase().includes(searcQuery.toLowerCase()))
              && (movie.nameRU.toLowerCase().includes(searcQuery.toLowerCase()))
             ))), 1000)
       });
       await promise;
       setIsLoading(false);
+      setSearcQueryLength(searcQuery.length)
     } catch(err) {
       console.log(err);
     }
   }
   //поиск
-
 
     //получаем все фильмы и сохраняем
     useEffect(() => {
@@ -147,41 +140,14 @@ function App() {
     }, [currentUser]);
     //получаем все фильмы и сохраняем
 
-
   useEffect(() => {
     handleTokenCheck()
-      .then(() => {
-        if (loggedIn) {
-          setIsLoadingInitialData(true);
-        }
-        // все хорошо, токен актуальный, можно делать запрос на получение данных
-        /*Promise.all([
-          getUserData(localStorage.getItem("jwt")),
-          getSavedMovie(localStorage.getItem("jwt")),
-        ])
-          .then((values) => {
-            setCurrentUser(values[0]);
-            setUserSavedMovies(values[1]);
-          })
-          .catch((err) => {
-            //попадаем сюда если один из промисов завершаться ошибкой
-            console.log(err);
-          })
-          .finally(() => {
-            setIsLoadingInitialData(false);
-          });*/
-        })
-      .catch((err) => {
-        // токена нет.... как-нибудь обрабатываем ошибку
-        console.error(err);
-      });
   }, []);
 
   function handleTokenCheck() {
     return new Promise((resolve, reject) => {
       const jwt = localStorage.getItem("jwt");
       if (jwt) {
-        // резолвим новый промис
         resolve(
           Promise.all([
             getUserData(jwt),
@@ -193,18 +159,12 @@ function App() {
             })
             .then((res) => {
               setLoggedIn(true);
-              history.push("/movies");
             })
             .catch((err) => {
-              //попадаем сюда если один из промисов завершаться ошибкой
               console.log(err);
-            })
-            .finally(() => {
-              setIsLoadingInitialData(false);
             })
         );
       } else {
-        // режектим промис (это попадет в catch) при вызове текущей функции
         reject("JWT is not actual");
       }
     });
@@ -298,29 +258,8 @@ function App() {
               history.push("/movies");
             })
             .catch((err) => {
-              //попадаем сюда если один из промисов завершаться ошибкой
               console.log(err);
             })
-            .finally(() => {
-              setIsLoadingInitialData(false);
-            })
-
-          /*getUserData(data.token)
-          .then((res) => {
-            setCurrentUser(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          getSavedMovie(data.token)
-          .then((res) => {
-            setSavedMovies(res)
-          })
-          .catch((err) => {
-            console.log(err);
-          })*/
-
-
           return data;
         }
       })
@@ -381,6 +320,7 @@ function App() {
             component={Movies}
             searcedMovies={searcedMovies}
             searcQuery={searcQuery}
+            searcQueryLength={searcQueryLength}
             handleChangeSearcQuery={handleChangeSearcQuery}
             handleSearc={handleSearc}
             isCheckedBox={isCheckedBox}
@@ -395,8 +335,8 @@ function App() {
             loggedIn={loggedIn}
             component={SavedMovies}
             searcedMovies={searcedSaveMovies}
-
             searcQuery={searcQuery}
+            searcQueryLength={searcQueryLength}
             handleChangeSearcQuery={handleChangeSearcQuery}
             handleSearc={handleSearcSavedMovie}
             isCheckedBox={isCheckedBox}

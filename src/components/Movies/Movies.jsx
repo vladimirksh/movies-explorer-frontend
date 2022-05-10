@@ -16,6 +16,7 @@ function Movies({
   isLoading,
   likeMovie,
   removeMovie,
+  searcQueryLength,
 }) {
   return (
     <>
@@ -35,6 +36,7 @@ function Movies({
         isLoading={isLoading}
         likeMovie={likeMovie}
         removeMovie={removeMovie}
+        searcQueryLength={searcQueryLength}
       />
       <Footer />
     </>

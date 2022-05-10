@@ -5,7 +5,7 @@ import Navigation from "../Navigation/Navigation";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function Profile({ signOut, handleUpdateUser }) {
-  const { currentUser, userSavedMovies } = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const [newName, setNewName] = useState(currentUser.name);
   const [newEmail, setNewEmail] = useState(currentUser.email);
   const [formValid, setFormValid] = useState(false);
