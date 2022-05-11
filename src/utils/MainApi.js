@@ -1,5 +1,5 @@
 import { MOVIES_URL } from "./MoviesApi";
-export const BASE_URL = 'api.movies.vkashankov.nomoredomains.xyz';
+export const BASE_URL = 'https://api.movies.vkashankov.nomoredomains.xyz';
 
 function getResponse(res) {
   if(res.ok) {
