@@ -15,7 +15,6 @@ function SavedMovies({
   handlerCheckBox,
   isLoading,
   removeMovie,
-  searcQueryLength,
 }) {
   return (
     <>
@@ -34,7 +33,6 @@ function SavedMovies({
         searcQuery={searcQuery}
         removeMovie={removeMovie}
         isLoading={isLoading}
-        searcQueryLength={searcQueryLength}
       />
       <Footer />
     </>

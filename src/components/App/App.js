@@ -23,17 +23,17 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function App() {
   const history = useHistory();
+  const location = window.location.pathname;
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userSavedMovies, setUserSavedMovies] = useState([])
-  const [searcedSaveMovies, setSearcedSaveMovies] = useState(userSavedMovies);
+  const [searcedSaveMovies, setSearcedSaveMovies] = useState([]);
 
   //массив фильмов 
   const [movies, setMovies] = useState([]);
   
   //поисковый запрос и чебокс кароткометражек
   const [searcQuery, setSearcQuery] = useState("");
-  const [searcQueryLength, setSearcQueryLength] = useState(null);
   const [isCheckedBox, setIsCheckedBox] = useState(false);
   const [searcedMovies, setSearcedMovies] = useState(movies);
 
@@ -55,35 +55,47 @@ function App() {
   const [passwordError, setPasswordError] = useState(true);
 
   //отслеживаем изменения в поисковике
-  useEffect(() => {
-    setSearcQuery(searcQuery);
-  }, [searcQuery]);
+   useEffect(() => {
+     location === "/movies" ?
+     setSearcQuery(localStorage.getItem("searcQueryMain") || '') 
+     : setSearcQuery(localStorage.getItem("searcQuerySave") || '')
+   }, [location]);
   
   function handleChangeSearcQuery (e) {
     setSearcQuery(e.target.value);
+    location === "/movies" ?
+    localStorage.setItem("searcQueryMain", e.target.value) 
+    : localStorage.setItem("searcQuerySave", e.target.value)
   };
   //отслеживаем изменения в поисковике
 
   //отслеживаем изменения в чекбоксе
   useEffect(() => {
-    setIsCheckedBox(isCheckedBox);
-  }, [isCheckedBox]);
+    location === "/movies" ?
+    setIsCheckedBox(JSON.parse(localStorage.getItem("isCheckMain"))) 
+    : setIsCheckedBox(JSON.parse(localStorage.getItem("isCheckSave")));
+  }, [isCheckedBox, location]);
 
   function handlerCheckBox() {
     setIsCheckedBox(!isCheckedBox);
+    location === "/movies" ?
+    localStorage.setItem("isCheckMain", JSON.stringify(!isCheckedBox)) 
+    : localStorage.setItem("isCheckSave", JSON.stringify(!isCheckedBox))
   }
   //отслеживаем изменения в чекбоксе
 
   //Глобальный поиск
   useEffect(() => {
-    setSearcedMovies(movies);
-  }, [movies]);
+    setSearcedMovies(JSON.parse(localStorage.getItem("searcedMovies")))
+  }, []);
 
+   useEffect(() => {
+    localStorage.setItem("searcedMovies", JSON.stringify(searcedMovies))
+  }, [movies, searcedMovies]);
 
   function handleSearc (e) {
     e.preventDefault();
-    handleSeacrcMovies(movies, setSearcedMovies)
-    setSearcQueryLength(searcQueryLength)
+    handleSeacrcMovies(movies, setSearcedMovies);
   };
   //Глобальный поиск
 
@@ -91,11 +103,10 @@ function App() {
   useEffect(() => {
     setSearcedSaveMovies(userSavedMovies);
   }, [userSavedMovies]);
-  
+
   function handleSearcSavedMovie (e) {
     e.preventDefault();
     handleSeacrcMovies(userSavedMovies, setSearcedSaveMovies)
-    setSearcQueryLength(searcQueryLength)
   };
   //Поиск по сохраненым фильмам
 
@@ -119,26 +130,25 @@ function App() {
       });
       await promise;
       setIsLoading(false);
-      setSearcQueryLength(searcQuery.length)
     } catch(err) {
       console.log(err);
     }
   }
   //поиск
 
-    //получаем все фильмы и сохраняем
-    useEffect(() => {
-      getMoviesData()
-        .then((res) => {
-          localStorage.setItem("movies", JSON.stringify(res));
-          setMovies(JSON.parse(localStorage.getItem("movies")));
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-          localStorage.removeItem("movies");
-        });
-    }, [currentUser]);
-    //получаем все фильмы и сохраняем
+  //получаем все фильмы и сохраняем
+  useEffect(() => {
+    getMoviesData()
+      .then((res) => {
+        localStorage.setItem("movies", JSON.stringify(res));
+        setMovies(JSON.parse(localStorage.getItem("movies")));
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+        localStorage.removeItem("movies");
+      });
+  }, [currentUser]);
+  //получаем все фильмы и сохраняем
 
   useEffect(() => {
     handleTokenCheck()
@@ -159,6 +169,7 @@ function App() {
             })
             .then((res) => {
               setLoggedIn(true);
+              history.push(location);
             })
             .catch((err) => {
               console.log(err);
@@ -242,14 +253,11 @@ function App() {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
-          setLoggedIn(true);
-          history.push("/movies");
           Promise.all([
             getUserData(data.token),
             getSavedMovie(data.token),
           ])
             .then((values) => {
-              console.log(values)
               setCurrentUser(values[0]);
               setUserSavedMovies(values[1]);
             })
@@ -268,7 +276,15 @@ function App() {
 
   function signOut() {
     localStorage.removeItem("jwt");
-    history.push("/signin");
+    localStorage.removeItem("movies");
+    localStorage.removeItem("searcedMovies");
+    setSearcedMovies(null);
+    localStorage.removeItem("searcQueryMain");
+    localStorage.removeItem("searcQuerySave");
+    localStorage.removeItem("isCheckMain");
+    localStorage.removeItem("isCheckSave");
+    setLoggedIn(false);
+    history.push("/main");
   };
   //регистрация авторизация выход
 
@@ -277,9 +293,16 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     patchUserData(email, name, jwt)
     .then((res) => {
-      setCurrentUser(res);
+      setIsInfoTooltipOpen(true);
+      if (res) {
+        setCurrentUser(res);
+        setMessage(true);
+      }
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      setMessage(false);
+      setIsInfoTooltipOpen(true);
+    });
   };
   //обновление имени или почты пользователя
 
@@ -318,9 +341,8 @@ function App() {
             path="/movies"
             loggedIn={loggedIn}
             component={Movies}
-            searcedMovies={searcedMovies}
+            searcedMovies={searcedMovies == null ? movies : searcedMovies}
             searcQuery={searcQuery}
-            searcQueryLength={searcQueryLength}
             handleChangeSearcQuery={handleChangeSearcQuery}
             handleSearc={handleSearc}
             isCheckedBox={isCheckedBox}
@@ -336,7 +358,6 @@ function App() {
             component={SavedMovies}
             searcedMovies={searcedSaveMovies}
             searcQuery={searcQuery}
-            searcQueryLength={searcQueryLength}
             handleChangeSearcQuery={handleChangeSearcQuery}
             handleSearc={handleSearcSavedMovie}
             isCheckedBox={isCheckedBox}
@@ -355,7 +376,9 @@ function App() {
           />
 
           <Route path="/main">
-            <Main/>
+            <Main
+            loggedIn={loggedIn}
+            />
           </Route>
           
           <Route path="/signup">
@@ -393,7 +416,7 @@ function App() {
           </Route>
 
           <Route exact path="/">
-            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/main" />}
           </Route>
           <Route path='*'>
             <NoFound />

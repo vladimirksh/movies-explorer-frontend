@@ -17,9 +17,7 @@ function InfoTooltip({ isOpen, message, onClose }) {
             className="popup__union"
             style={{ backgroundImage: `url(${union})` }}
           ></div>
-          <h4 className="popup__response-text">
-            Вы успешно зарегистрировались!
-          </h4>
+          <h4 className="popup__response-text">Операция выполнена успешно!</h4>
         </>
       ) : (
         <>

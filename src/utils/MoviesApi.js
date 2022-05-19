@@ -1,5 +1,6 @@
 export const MOVIES_URL = 'https://api.nomoreparties.co';
 
+
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json",

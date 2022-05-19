@@ -9,7 +9,6 @@ function MoviesCardList({
   searcQuery,
   likeMovie,
   removeMovie,
-  searcQueryLength,
 }) {
   const location = window.location.pathname;
   const [renderedMoviesCount, setRenderedMoviesCount] = useState(0);
@@ -59,13 +58,10 @@ function MoviesCardList({
   return (
     <section className="movies">
       {isLoading && <Preloader />}
-      {searcQueryLength === 0 && (
-        <p className="movies__find-error">Нужно ввести ключевое слово</p>
-      )}
       {searcedMovies.length === 0 && (
         <p className="movies__find-error">Ничего не найдено</p>
       )}
-      {!isLoading && searcQueryLength !== 0 && (
+      {!isLoading && (
         <ul className="movies__list">
           {sliceSercedMovies.map((movie) => (
             <MoviesCard
@@ -79,16 +75,11 @@ function MoviesCardList({
         </ul>
       )}
 
-      {!isLoading &&
-        searcedMovies.length > renderedMoviesCount &&
-        searcQueryLength !== 0 && (
-          <button
-            className="movies__more-button"
-            onClick={handleShowMoreMovies}
-          >
-            Еще
-          </button>
-        )}
+      {!isLoading && searcedMovies.length > renderedMoviesCount && (
+        <button className="movies__more-button" onClick={handleShowMoreMovies}>
+          Еще
+        </button>
+      )}
     </section>
   );
 }
