@@ -36,7 +36,6 @@
 }
 
 .menu__button {
-  background-color: #202020;
   font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -44,13 +43,34 @@
   line-height: 16px;
   display: flex;
   align-items: center;
-  color: #FFFFFF;
   border: 2px solid rgba(170, 170, 170, 0.2);
   box-sizing: border-box;
   border-radius: 50px;
   padding: 9px 12px;
+  cursor: pointer;
+}
+
+.menu__button_black{
+  background-color: #202020;
+  color: #FFFFFF;
+}
+
+.menu__button_green{
+  background-color: #3DDC84;
+  color: #000000;
+}
+
+.menu__link:hover {
+  opacity: 0.6;
+  transition: 1s ease;
+}
+
+.menu__button:hover {
+  opacity: 0.6;
+  transition: 1s ease;
 }
 
 .menu__account-icon {
   margin-right: 7px;
+  color: red
 }

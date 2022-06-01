@@ -4,22 +4,37 @@ import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import { moviesSaved } from "../../utils/allMovies";
 import Footer from "../Footer/Footer";
-import Preloader from "../Preloader/Preloader";
 
-const loading = false;
-
-function SavedMovies() {
+function SavedMovies({
+  searcedMovies,
+  searcQuery,
+  handleChangeSearcQuery,
+  handleSearc,
+  isCheckedBox,
+  handlerCheckBox,
+  isLoading,
+  removeMovie,
+}) {
   return (
     <>
       <Header modification="header_client">
         <Navigation />
       </Header>
-      <SearchForm />
-      <MoviesCardList movies={moviesSaved} isRemovable />
+      <SearchForm
+        searcQuery={searcQuery}
+        handleChangeSearcQuery={handleChangeSearcQuery}
+        handleSearc={handleSearc}
+        isCheckedBox={isCheckedBox}
+        handlerCheckBox={handlerCheckBox}
+      />
+      <MoviesCardList
+        searcedMovies={searcedMovies}
+        searcQuery={searcQuery}
+        removeMovie={removeMovie}
+        isLoading={isLoading}
+      />
       <Footer />
-      {loading && <Preloader />}
     </>
   );
 }

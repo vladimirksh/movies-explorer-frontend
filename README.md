@@ -29,6 +29,10 @@
 
 ---
 
+[ссылка на сайт](https://movies.vkashankov.nomoredomains.xyz "frontend Movies")
+
+[ссылка на сервер](https://api.movies.vkashankov.nomoredomains.xyz "backend Movies")
+
 ## Запуск проекта
 
 1. Клонировать репозиторий
